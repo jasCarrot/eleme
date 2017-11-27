@@ -33,11 +33,11 @@ module.exports = {
             },
             {
                 test: /\.(woff|svg|eot|ttf)\??.*$/,
-                loader: 'url-loader?limit=50000&name=[path][name].[ext]'
+                loader: 'url-loader?limit=50000'
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
-                loader: "file-loader?name=/public/icons/[name].[ext]"
+                loader: "file-loader"
             },
             {
                 test: /\.s[a|c]ss$/,

@@ -6,13 +6,18 @@
             </div>
             <div class="content">
                 <div class="title">
-                    <div class="brand"><img src="brand@2x.png"> </div>
+                    <div class="brand"></div>
                     <div class="name">{{ seller.name }}</div>
                 </div>
+                <div class="description">{{ seller.description }}/{{ seller.deliveryTime }}分钟送达</div>
                 <div class="supports">
-                    <div class="description">{{ seller.description }}/{{ seller.deliveryTime }}分钟送达</div>
+                    <div class="icon" :class="classMap[seller.supports[0].type]"></div>
                     <div class="supports-description">{{ seller.supports[0].description }}</div>
                 </div>
+            </div>
+            <div class="supports-count">
+                <span class="active-count">{{ seller.supports.length }}个</span>
+                <span class="icon-arrow-right"></span>
             </div>
         </div>
     </div>
@@ -73,15 +78,19 @@
                     ]
                 }
             }
+        },
+        created() {
+            this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
         }
     }
 </script>
 
 <style>
     .header {
+        position: relative;
         display: flex;
         color: white;
-        background-color: #7e8c8d;
+        background-color: rgba(68, 67, 67, 1);
     }
 
     .content-wrapper {
@@ -91,7 +100,7 @@
     }
 
     .content {
-        padding-left: 16px;
+        margin-left: 16px;
     }
 
     .title {
@@ -100,30 +109,98 @@
     }
 
     .brand {
-        margin: 2px 0 8px 0;
+        margin: 2px 6px 0 0;
         width: 30px;
         height: 18px;
-        /*background-image: url("brand@2x.png");*/
+        background-image: url("brand@2x.png");
+        background-size: 30px 18px;
     }
 
     .name {
-        padding-top: 2px;
+        margin-top: 2px;
         font-size: 16px;
         font-weight: bold;
         line-height: 18px;
     }
 
     .description {
-        padding-top: 8px;
+        margin-top: 8px;
         font-size: 12px;
-        font-weight: 100;
+        font-weight: 200;
         line-height: 12px;
     }
 
-    .supports-description {
-        padding-top: 10px;
+    .supports {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 10px;
         font-size: 10px;
-        font-weight: 100;
-        line-height: 12px;
+        font-weight: 200;
     }
+
+    .supports-description {
+        padding-top: 1px;
+        /*line-height: 12px;*/
+    }
+
+    .icon {
+        margin-right: 4px;
+        width: 12px;
+        height: 12px;
+    }
+
+    .decrease {
+        background-image: url("decrease_1@2x.png");
+        background-size: cover;
+    }
+
+    .discount {
+        background-image: url("discount_1@2x.png");
+        background-size: cover;
+    }
+
+    .guarantee {
+        background-image: url("guarantee_1@2x.png");
+        background-size: cover;
+    }
+
+    .invoice {
+        background-image: url("invoice_1@2x.png");
+        background-size: cover;
+    }
+
+    .special {
+        background-image: url("special_1@2x.png");
+        background-size: cover;
+    }
+
+    .supports-count {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.2);
+        right: 12px;
+        bottom: 18px;
+        height: 24px;
+        width: 40px;
+        line-height: 18px;
+        border-radius: 14px;
+        text-align: center;
+    }
+
+    .active-count {
+        margin-left: 8px;
+        font-weight: 200;
+        font-size: 10px;
+    }
+
+    .icon-arrow-right {
+        display: inline-block;
+        margin-right: 4px;
+        margin-bottom: 1px;
+        width: 4px;
+        height: 4px;
+        border-top: 1px solid #999;
+        border-right: 1px solid #999;
+        transform: rotate(45deg);
+    }
+
 </style>
