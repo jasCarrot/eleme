@@ -20,6 +20,14 @@
                 <span class="icon-arrow-right"></span>
             </div>
         </div>
+        <div class="bulletin-wrapper">
+            <span class="bulletin-icon"></span>
+            <span class="bulletin-text">{{ seller.bulletin }}</span>
+            <span class="icon-arrow-right"></span>
+        </div>
+        <div class="bg-header">
+            <img width="100%" height="100%" :src="seller.avatar">
+        </div>
     </div>
 </template>
 
@@ -88,15 +96,19 @@
 <style>
     .header {
         position: relative;
-        display: flex;
         color: white;
-        background-color: rgba(68, 67, 67, 1);
+        background-color: rgba(7, 17, 27, 0.2);
     }
 
     .content-wrapper {
+        position: relative;
         display: flex;
         justify-content: flex-start;
         padding: 24px 12px 18px 24px;
+    }
+
+    .avatar > img{
+        border-radius: 4px;
     }
 
     .content {
@@ -178,7 +190,7 @@
         position: absolute;
         background-color: rgba(0, 0, 0, 0.2);
         right: 12px;
-        bottom: 18px;
+        bottom: 16px;
         height: 24px;
         width: 40px;
         line-height: 18px;
@@ -194,8 +206,6 @@
 
     .icon-arrow-right {
         display: inline-block;
-        margin-right: 4px;
-        margin-bottom: 1px;
         width: 4px;
         height: 4px;
         border-top: 1px solid #999;
@@ -203,4 +213,52 @@
         transform: rotate(45deg);
     }
 
+    .supports-count > .icon-arrow-right {
+        margin-right: 4px;
+        margin-bottom: 1px;
+    }
+
+    .bulletin-wrapper {
+        position: relative;
+        padding: 0 24px 0 12px;
+        background-color: rgba(7, 17, 27, 0.2);
+        line-height: 28px;
+        height: 28px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .bulletin-icon {
+        display: inline-block;
+        /*vertical-align: top;*/
+        margin-top: 8px;
+        width: 22px;
+        height: 12px;
+        background-image: url("bulletin@2x.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .bulletin-text {
+        vertical-align: top;
+        font-weight: 200;
+        font-size: 10px;
+    }
+
+    .bulletin-wrapper > .icon-arrow-right {
+        position: absolute;
+        right: 12px;
+        top: 12px;
+    }
+
+    .bg-header {
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        filter: blur(10px);
+    }
 </style>
