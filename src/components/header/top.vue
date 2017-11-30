@@ -15,7 +15,7 @@
                     <div class="supports-description">{{ seller.supports[0].description }}</div>
                 </div>
             </div>
-            <div class="supports-count">
+            <div class="supports-count" @click="showMe">
                 <span class="active-count">{{ seller.supports.length }}个</span>
                 <span class="icon-arrow-right"></span>
             </div>
@@ -28,6 +28,14 @@
         <div class="bg-header">
             <img width="100%" height="100%" :src="seller.avatar">
         </div>
+        <div v-show="showMea" class="detail">
+            <div class="detail-wrapper">
+                <div class="detail-con fix"></div>
+            </div>
+            <div class="detail-foot">
+                <div class="icon-close"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -36,6 +44,7 @@
         name: 'top',
         data() {
             return {
+                showMea: false,
                 "seller": {
                     "name": "粥品香坊（回龙观）",
                     "description": "蜂鸟专送",
@@ -87,8 +96,13 @@
                 }
             }
         },
+        methods: {
+            showMe() {
+                this.showMea =! this.showMea;
+            }
+        },
         created() {
-            this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+            this.classMap = [ 'decrease', 'discount', 'special', 'invoice', 'guarantee']
         }
     }
 </script>
@@ -98,6 +112,7 @@
         position: relative;
         color: white;
         background-color: rgba(7, 17, 27, 0.2);
+        overflow: hidden;
     }
 
     .content-wrapper {
@@ -107,7 +122,7 @@
         padding: 24px 12px 18px 24px;
     }
 
-    .avatar > img{
+    .avatar > img {
         border-radius: 4px;
     }
 
@@ -260,5 +275,42 @@
         width: 100%;
         height: 100%;
         filter: blur(10px);
+    }
+
+    .detail {
+        position: fixed;
+        /*z-index: ;*/
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: rgba(7, 17, 27, 0.5);
+    }
+
+    .detail-wrapper{
+        min-height: 100%;
+    }
+
+    .detail-con{
+        padding-bottom: 64px;
+    }
+
+    .detail-foot{
+        position: relative;
+        width: 32px;
+        height: 32px;
+        margin: ;
+    }
+
+    .fix{
+        display: inline-block;
+    }
+
+    .fix:after{
+        display: block;
+        content: ".";
+        height: 0;
+        line-height: 0;
+        clear: both;
+        visibility: hidden;
     }
 </style>
