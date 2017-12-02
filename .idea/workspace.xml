@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="72c8ba3d-4504-4947-8ab7-7b210a3cfa9e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/star/star.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/header/top.vue" afterPath="$PROJECT_DIR$/src/components/header/top.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/html/index.html" afterPath="$PROJECT_DIR$/static/html/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -518,7 +515,7 @@
       <workItem from="1511852162750" duration="10417000" />
       <workItem from="1511862915292" duration="2423000" />
       <workItem from="1512020291510" duration="10608000" />
-      <workItem from="1512199289076" duration="6146000" />
+      <workItem from="1512199289076" duration="6158000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <created>1511695354276</created>
@@ -548,11 +545,18 @@
       <option name="project" value="LOCAL" />
       <updated>1512049211487</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="1">
+      <created>1512208640474</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1512208640474</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132508000" />
+    <option name="totallyTimeSpent" value="132520000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
