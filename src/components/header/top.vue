@@ -28,9 +28,13 @@
         <div class="bg-header">
             <img width="100%" height="100%" :src="seller.avatar">
         </div>
-        <div v-show="showMea" class="detail">
+        <div v-show="showMea" class="detail" @click="hiddenMe">
             <div class="detail-wrapper">
-                <div class="detail-con fix"></div>
+                <div class="detail-con fix">
+                    <div class="detail-main">
+                        <div class="detail-title">{{ seller.name }}</div>
+                    </div>
+                </div>
             </div>
             <div class="detail-foot">
                 <div class="icon-close"></div>
@@ -98,11 +102,14 @@
         },
         methods: {
             showMe() {
-                this.showMea =! this.showMea;
+                this.showMea = true;
+            },
+            hiddenMe(){
+                this.showMea = false;
             }
         },
         created() {
-            this.classMap = [ 'decrease', 'discount', 'special', 'invoice', 'guarantee']
+            this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
         }
     }
 </script>
@@ -279,38 +286,56 @@
 
     .detail {
         position: fixed;
-        /*z-index: ;*/
+        top: 0;
+        left: 0;
+        z-index: 7;
         width: 100%;
         height: 100%;
         overflow: auto;
         background: rgba(7, 17, 27, 0.5);
     }
 
-    .detail-wrapper{
+    .detail-wrapper {
         min-height: 100%;
     }
 
-    .detail-con{
+    .detail-con {
         padding-bottom: 64px;
+        width: 100%;
     }
 
-    .detail-foot{
+    .detail-foot {
         position: relative;
         width: 32px;
         height: 32px;
-        margin: ;
+        margin: -64px auto 0 auto;
+        clear: both;
+        font-size: 32px;
     }
 
-    .fix{
+    .icon-close:before {
+        content: "\e903";
+    }
+
+    .fix {
         display: inline-block;
     }
 
-    .fix:after{
+    .fix:after {
         display: block;
         content: ".";
         height: 0;
         line-height: 0;
         clear: both;
         visibility: hidden;
+    }
+
+    .detail-title{
+        width: 100%;
+        padding-top: 64px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 16px;
     }
 </style>
