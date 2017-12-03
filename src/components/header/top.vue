@@ -33,6 +33,15 @@
                 <div class="detail-con fix">
                     <div class="detail-main">
                         <div class="detail-title">{{ seller.name }}</div>
+                        <star :size="48" :score="seller.score" class="star-position"></star>
+                        <pra :message="name1"></pra>
+                        <ul class="detail-supports" v-if="seller.supports">
+                            <li class="support-item" v-for="(item, index) in seller.supports">
+                                <span class="detail-icon" :class="classMap[seller.supports[index].type]"></span>
+                                <span class="detail-text">{{ seller.supports[index].description }}</span>
+                            </li>
+                        </ul>
+                        <pra :message="name2"></pra>
                     </div>
                 </div>
             </div>
@@ -44,11 +53,16 @@
 </template>
 
 <script>
+    import star from "../star/star.vue"
+    import pra from "./pra.vue"
+
     export default{
         name: 'top',
         data() {
             return {
                 showMea: false,
+                name1: '优惠信息',
+                name2: '商家公告',
                 "seller": {
                     "name": "粥品香坊（回龙观）",
                     "description": "蜂鸟专送",
@@ -110,8 +124,12 @@
         },
         created() {
             this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+        },
+        components: {
+            star,
+            pra
         }
-    }
+    };
 </script>
 
 <style>
@@ -257,9 +275,8 @@
         margin-top: 8px;
         width: 22px;
         height: 12px;
-        background-image: url("bulletin@2x.png");
+        background-image: url("bulletin@2x.png") no-repeat;
         background-size: cover;
-        background-repeat: no-repeat;
     }
 
     .bulletin-text {
@@ -292,7 +309,7 @@
         width: 100%;
         height: 100%;
         overflow: auto;
-        background: rgba(7, 17, 27, 0.5);
+        background: rgba(7, 17, 27, 0.7);
     }
 
     .detail-wrapper {
@@ -330,7 +347,7 @@
         visibility: hidden;
     }
 
-    .detail-title{
+    .detail-title {
         width: 100%;
         padding-top: 64px;
         text-align: center;
@@ -338,4 +355,56 @@
         font-weight: 700;
         line-height: 16px;
     }
+
+    .star-position {
+        margin-top: 16px;
+        text-align: center;
+    }
+
+    .detail-label {
+        display: flex;
+        width: 80%;
+        margin: 28px auto 24px auto;
+    }
+
+    .line {
+        flex: auto;
+        position: relative;
+        top: -6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .text {
+        padding: 0 12px;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .detail-supports {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .support-item {
+        padding: 0 12px;
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .detail-icon {
+        display: inline-block;
+        /*margin-top: -2px;*/
+        width: 16px;
+        height: 16px;
+        vertical-align: top;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .detail-text {
+        line-height: 16px;
+        font-size: 12px;
+    }
+
 </style>
