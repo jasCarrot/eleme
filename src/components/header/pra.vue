@@ -1,16 +1,14 @@
 <template>
     <div class="detail-label">
         <div class="line"></div>
-        <div class="text">{{message}}</div>
+        <div class="text">{{ message }}</div>
         <div class="line"></div>
     </div>
 </template>
 
 <script>
     export default{
-        props:{
-            message:'message'
-        }
+        props:['message']
     }
 </script>
 

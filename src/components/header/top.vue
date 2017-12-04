@@ -11,7 +11,7 @@
                 </div>
                 <div class="description">{{ seller.description }}/{{ seller.deliveryTime }}分钟送达</div>
                 <div class="supports">
-                    <div class="icon" :class="classMap[seller.supports[0].type]"></div>
+                    <classMap class="icon" :num="seller.supports[0].type"></classMap>
                     <div class="supports-description">{{ seller.supports[0].description }}</div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
                 <span class="icon-arrow-right"></span>
             </div>
         </div>
-        <div class="bulletin-wrapper">
+        <div class="bulletin-wrapper" @click="showMe">
             <span class="bulletin-icon"></span>
             <span class="bulletin-text">{{ seller.bulletin }}</span>
             <span class="icon-arrow-right"></span>
@@ -28,33 +28,38 @@
         <div class="bg-header">
             <img width="100%" height="100%" :src="seller.avatar">
         </div>
-        <div v-show="showMea" class="detail" @click="hiddenMe">
-            <div class="detail-wrapper">
-                <div class="detail-con fix">
-                    <div class="detail-main">
-                        <div class="detail-title">{{ seller.name }}</div>
-                        <star :size="48" :score="seller.score" class="star-position"></star>
-                        <pra :message="name1"></pra>
-                        <ul class="detail-supports" v-if="seller.supports">
-                            <li class="support-item" v-for="(item, index) in seller.supports">
-                                <span class="detail-icon" :class="classMap[seller.supports[index].type]"></span>
-                                <span class="detail-text">{{ seller.supports[index].description }}</span>
-                            </li>
-                        </ul>
-                        <pra :message="name2"></pra>
+        <transition name="fade">
+            <div v-show="showMea" class="detail" @click="hiddenMe">
+                <div class="detail-wrapper">
+                    <div class="detail-con fix">
+                        <div class="detail-main">
+                            <div class="detail-title">{{ seller.name }}</div>
+                            <star :size="48" :score="seller.score" class="star-position"></star>
+                            <pra :message="name1"></pra>
+                            <ul class="detail-supports" v-if="seller.supports">
+                                <li class="support-item" v-for="(item, index) in seller.supports">
+                                    <!--<span class="detail-icon" :class="classMap[seller.supports[index].type]"></span>-->
+                                    <classMap class="detail-icon" :num="seller.supports[index].type"></classMap>
+                                    <span class="detail-text">{{ seller.supports[index].description }}</span>
+                                </li>
+                            </ul>
+                            <pra :message="name2"></pra>
+                            <div class="detail-announcement">{{ seller.bulletin }}</div>
+                        </div>
                     </div>
                 </div>
+                <div class="detail-foot">
+                    <div class="icon-close"></div>
+                </div>
             </div>
-            <div class="detail-foot">
-                <div class="icon-close"></div>
-            </div>
-        </div>
+        </transition>
     </div>
 </template>
 
 <script>
     import star from "../star/star.vue"
     import pra from "./pra.vue"
+    import classMap from "../classMap/classMap.vue"
 
     export default{
         name: 'top',
@@ -122,12 +127,13 @@
                 this.showMea = false;
             }
         },
-        created() {
-            this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
-        },
+//        created() {
+//            this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee']
+//        },
         components: {
             star,
-            pra
+            pra,
+            classMap
         }
     };
 </script>
@@ -201,30 +207,30 @@
         height: 12px;
     }
 
-    .decrease {
-        background-image: url("decrease_1@2x.png");
-        background-size: cover;
-    }
+    /*.decrease {*/
+        /*background-image: url("decrease_1@2x.png");*/
+        /*background-size: cover;*/
+    /*}*/
 
-    .discount {
-        background-image: url("discount_1@2x.png");
-        background-size: cover;
-    }
+    /*.discount {*/
+        /*background-image: url("discount_1@2x.png");*/
+        /*background-size: cover;*/
+    /*}*/
 
-    .guarantee {
-        background-image: url("guarantee_1@2x.png");
-        background-size: cover;
-    }
+    /*.guarantee {*/
+        /*background-image: url("guarantee_1@2x.png");*/
+        /*background-size: cover;*/
+    /*}*/
 
-    .invoice {
-        background-image: url("invoice_1@2x.png");
-        background-size: cover;
-    }
+    /*.invoice {*/
+        /*background-image: url("invoice_1@2x.png");*/
+        /*background-size: cover;*/
+    /*}*/
 
-    .special {
-        background-image: url("special_1@2x.png");
-        background-size: cover;
-    }
+    /*.special {*/
+        /*background-image: url("special_1@2x.png");*/
+        /*background-size: cover;*/
+    /*}*/
 
     .supports-count {
         position: absolute;
@@ -275,8 +281,9 @@
         margin-top: 8px;
         width: 22px;
         height: 12px;
-        background-image: url("bulletin@2x.png") no-repeat;
+        background-image: url("bulletin@2x.png");
         background-size: cover;
+        background-repeat: no-repeat;
     }
 
     .bulletin-text {
@@ -361,25 +368,6 @@
         text-align: center;
     }
 
-    .detail-label {
-        display: flex;
-        width: 80%;
-        margin: 28px auto 24px auto;
-    }
-
-    .line {
-        flex: auto;
-        position: relative;
-        top: -6px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .text {
-        padding: 0 12px;
-        font-size: 14px;
-        font-weight: 700;
-    }
-
     .detail-supports {
         width: 80%;
         margin: 0 auto;
@@ -405,6 +393,32 @@
     .detail-text {
         line-height: 16px;
         font-size: 12px;
+    }
+
+    .detail-announcement {
+        margin: 24px 48px;
+        font-size: 12px;
+        font-weight: 200;
+        line-height: 24px;
+    }
+
+    .fade-enter-active {
+        animation: bounce-in 0.3s ease;
+    }
+
+    .fade-leave-active {
+        animation: bounce-in 0.3s reverse ease;
+    }
+
+    @keyframes bounce-in {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.8;
+        }
     }
 
 </style>
