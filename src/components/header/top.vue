@@ -17,13 +17,13 @@
             </div>
             <div class="supports-count" @click="showMe">
                 <span class="active-count">{{ seller.supports.length }}个</span>
-                <span class="icon-arrow-right"></span>
+                <span class="icon-arrow-right" @click="showMe"></span>
             </div>
         </div>
         <div class="bulletin-wrapper" @click="showMe">
-            <span class="bulletin-icon"></span>
-            <span class="bulletin-text">{{ seller.bulletin }}</span>
-            <span class="icon-arrow-right"></span>
+            <span class="bulletin-icon" @click="showMe"></span>
+            <span class="bulletin-text" @click="showMe">{{ seller.bulletin }}</span>
+            <span class="icon-arrow-right" @click="showMe"></span>
         </div>
         <div class="bg-header">
             <img width="100%" height="100%" :src="seller.avatar">

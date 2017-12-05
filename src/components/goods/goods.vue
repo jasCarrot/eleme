@@ -2,15 +2,40 @@
     <div class="goods">
         <div class="menu-wrapper">
             <ul>
-                <li v-for="item in goods">
+                <li v-for="item in goods" class="menu-item">
                     <span class="text">
-                        <classMap class="icon" v-show="item.type>0" :num="item.type"></classMap>
-                        <span>{{ item.name }}</span>
+                        <classMap class="icon-text" v-show="item.type>0" :num="item.type"></classMap>
+                        <span class="item-text">{{ item.name }}</span>
                     </span>
                 </li>
             </ul>
         </div>
-        <div class="foods-wrapper"></div>
+        <div class="foods-wrapper">
+            <ul>
+                <li v-for="item in goods" class="food-list">
+                    <div class="foods-title">{{ item.name }}</div>
+                    <ul>
+                        <li v-for="food in goods[0].foods" class="food-item">
+                            <div class="food-icon">
+                                <img :src="food.icon" width="57" height="57">
+                            </div>
+                            <div class="content">
+                                <div class="food-name">{{ food.name }}</div>
+                                <div class="food-des">{{ food.description }}</div>
+                                <div class="sales">
+                                    <span>月售{{ food.sellCount }}份</span>
+                                    <span>好评率{{ food.rating }}%</span>
+                                </div>
+                                <div class="price">
+                                    <span class="new-price">￥{{ food.price }}</span>
+                                    <span class="old-price" v-show="food.oldPrice">￥{{ food.oldPrice }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -1127,7 +1152,103 @@
         background: #f3f5f7;
     }
 
-    .foods-wrapper {
+    .menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 54px;
+        width: 80px;
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    }
 
+    .text {
+
+    }
+
+    .foods-wrapper {
+        width: calc(100% - 80px);
+    }
+
+    .icon-text {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background-repeat: no-repeat;
+        vertical-align: top;
+    }
+
+    .item-text {
+        display: inline;
+        color: rgba(9, 8, 8, 0.94);
+        font-size: 12px;
+        font-weight: 200;
+        line-height: 12px;
+        vertical-align: top;
+    }
+
+    .food-item {
+        display: flex;
+        margin: 18px 18px 0 18px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    }
+
+    .food-item:last-child{
+        border-bottom: hidden;
+    }
+
+    .foods-title {
+        padding-left: 14px;
+        height: 26px;
+        background-color: #f3f5f7;
+        font-size: 12px;
+        line-height: 26px;
+        color: rgb(147, 153, 159);
+        border-left: 2px solid #d9dde1;
+    }
+
+    .food-name {
+        font-size: 12px;
+        line-height: 14px;
+        padding: 2px 0 8px 0;
+        color: rgb(7, 17, 27);
+    }
+
+    .food-des {
+        margin-bottom: 8px;
+        color: rgb(147, 153, 159);
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .sales{
+        color: rgb(147, 153, 159);
+        font-size: 10px;
+        line-height: 10px;
+        padding-right:12px;
+    }
+
+    .price{
+        font-weight: 700;
+        line-height: 24px;
+    }
+
+    .new-price{
+        margin-right: 8px;
+        font-size: 14px;
+        color: rgb(240,20,20);
+    }
+
+    .old-price{
+        text-decoration: line-through;
+        font-size: 10px;
+        color: rgb(147, 153, 159);
+    }
+
+    .food-icon {
+        flex: 0 0 57px;
+    }
+
+    .content {
     }
 </style>
