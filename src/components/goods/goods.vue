@@ -1,6 +1,6 @@
 <template>
     <div class="goods">
-        <div class="menu-wrapper">
+        <div class="menu-wrapper" ref="menuwrapper">
             <ul>
                 <li v-for="item in goods" class="menu-item">
                     <span class="text">
@@ -10,7 +10,7 @@
                 </li>
             </ul>
         </div>
-        <div class="foods-wrapper">
+        <div class="foods-wrapper" ref="foodswrapper">
             <ul>
                 <li v-for="item in goods" class="food-list">
                     <div class="foods-title">{{ item.name }}</div>
@@ -41,6 +41,10 @@
 
 <script>
     import classMap from "../classMap/classMap.vue"
+    import BScroll from "better-scroll"
+
+//        const wrapper =document.querySelector('.wrapper');
+//        const scroll = new BScroll('.wrapper');
 
     export default{
         name: 'goods',
@@ -1131,7 +1135,26 @@
         },
         components: {
             classMap
-        }
+        },
+        created() {
+            this.loadData()
+        },
+        methods: {
+            loadData(){
+                requestData().then((res) => {
+                    this.data = res.data;
+                    this.$nextTick(() => {
+                        this.menuscroll = new Bscroll(this.$refs.menuwrapper, {});
+                        this.foodsscroll = new Bscroll(this.$refs.foodswrapper, {});
+                    })
+                })
+            }
+        },
+//        mounted() {
+//            this.$nextTick(() => {
+//
+//            });
+//        }
     }
 </script>
 
@@ -1193,7 +1216,7 @@
         border-bottom: 1px solid rgba(7, 17, 27, 0.1);
     }
 
-    .food-item:last-child{
+    .food-item:last-child {
         border-bottom: hidden;
     }
 
@@ -1221,25 +1244,25 @@
         line-height: 10px;
     }
 
-    .sales{
+    .sales {
         color: rgb(147, 153, 159);
         font-size: 10px;
         line-height: 10px;
-        padding-right:12px;
+        padding-right: 12px;
     }
 
-    .price{
+    .price {
         font-weight: 700;
         line-height: 24px;
     }
 
-    .new-price{
+    .new-price {
         margin-right: 8px;
         font-size: 14px;
-        color: rgb(240,20,20);
+        color: rgb(240, 20, 20);
     }
 
-    .old-price{
+    .old-price {
         text-decoration: line-through;
         font-size: 10px;
         color: rgb(147, 153, 159);
