@@ -1,6 +1,6 @@
 <template>
     <div class="goods">
-        <div class="menu-wrapper" ref="menuwrapper">
+        <div class="menu-wrapper" ref="menuWrapper">
             <ul>
                 <li v-for="item in goods" class="menu-item">
                     <span class="text">
@@ -10,7 +10,7 @@
                 </li>
             </ul>
         </div>
-        <div class="foods-wrapper" ref="foodswrapper">
+        <div class="foods-wrapper" ref="foodsWrapper">
             <ul>
                 <li v-for="item in goods" class="food-list">
                     <div class="foods-title">{{ item.name }}</div>
@@ -43,8 +43,8 @@
     import classMap from "../classMap/classMap.vue"
     import BScroll from "better-scroll"
 
-//        const wrapper =document.querySelector('.wrapper');
-//        const scroll = new BScroll('.wrapper');
+    //        const wrapper =document.querySelector('.wrapper');
+    //        const scroll = new BScroll('.wrapper');
 
     export default{
         name: 'goods',
@@ -1137,24 +1137,17 @@
             classMap
         },
         created() {
-            this.loadData()
+            this.$nextTick(() => {
+                this._initScroll()
+            })
         },
         methods: {
-            loadData(){
-                requestData().then((res) => {
-                    this.data = res.data;
-                    this.$nextTick(() => {
-                        this.menuscroll = new Bscroll(this.$refs.menuwrapper, {});
-                        this.foodsscroll = new Bscroll(this.$refs.foodswrapper, {});
-                    })
-                })
+            _initScroll(){
+                this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+
+                this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
             }
-        },
-//        mounted() {
-//            this.$nextTick(() => {
-//
-//            });
-//        }
+        }
     }
 </script>
 
