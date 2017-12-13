@@ -2,7 +2,8 @@
     <div class="goods">
         <div class="menu-wrapper" ref="menuWrapper">
             <ul>
-                <li v-for="item in goods" class="menu-item">
+                <li v-for="(item,index,event) in goods" class="menu-item" :class="{'current':currentIndex === index}"
+                    @click="selectMenu(index,event)">
                     <span class="text">
                         <classMap class="icon-text" v-show="item.type>0" :num="item.type"></classMap>
                         <span class="item-text">{{ item.name }}</span>
@@ -12,7 +13,7 @@
         </div>
         <div class="foods-wrapper" ref="foodsWrapper">
             <ul>
-                <li v-for="item in goods" class="food-list">
+                <li v-for="item in goods" class="food-list food-list-hook">
                     <div class="foods-title">{{ item.name }}</div>
                     <ul>
                         <li v-for="food in goods[0].foods" class="food-item">
@@ -1131,6 +1132,8 @@
                         ]
                     }
                 ],
+                listHeight: [],
+                scrollY: 0
             }
         },
         components: {
@@ -1138,14 +1141,50 @@
         },
         created() {
             this.$nextTick(() => {
-                this._initScroll()
+                this._initScroll();
+                this._calculateHeight();
             })
         },
         methods: {
             _initScroll(){
-                this.menuScroll = new BScroll(this.$refs.menuWrapper, {})
+                this.menuScroll = new BScroll(this.$refs.menuWrapper, {click: true})
 
-                this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {})
+                this.foodsScroll = new BScroll(this.$refs.foodsWrapper, {
+                    probeType: 3
+                });
+
+                this.foodsScroll.on('scrool', (pos) => {
+                    this.scrollY = Math.abs(Math.round(pos.y));
+                })
+            },
+            _calculateHeight(){
+                let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
+                let height = 0;
+                this.listHeight.push(height);
+                for (let i = 0; i < foodList.length; i++) {
+                    let item = foodList[i];
+                    this.listHeight.push(height);
+                }
+            },
+            selectMenu(index, event){
+                if (!event._constructed) {
+                    return
+                }
+                let foodList = this.$refs.foodsWrapper.getElementsByClassName('foods-list-hook');
+                let el = foodList[index];
+                this.foodsScoll, scrollToElement(el, 300)
+            }
+        },
+        computed: {
+            currentIndex(){
+                for (let i = 0; i < this.listHeight.length; i++) {
+                    let height1 = this.listHeight[i];
+                    let height2 = this.listHeight[i + 1];
+                    if (!height2 || (this.scrollY > height1 && this.scrollY < height2)) {
+                        return i;
+                    }
+                }
+                return 0
             }
         }
     }
@@ -1175,6 +1214,17 @@
         height: 54px;
         width: 80px;
         border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    }
+
+    .current {
+        position: relative;
+        z-index: 10;
+        background: #fff;
+        font-weight: 700;
+    }
+
+    .current > .text {
+    border-none();
     }
 
     .text {
